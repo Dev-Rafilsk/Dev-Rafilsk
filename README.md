@@ -4,6 +4,6 @@ Minha jornada profissional começou na Enfermagem, onde desenvolvi resiliência,
 💻 Minha Evolução Técnica:  
   
   Na Universidade, foco em fundamentos sólidos, lógica de programação e algoritmos com C e Python. Mas além da sala de aula, sou autodidata apaixonado por desenvolvimento Web. 
-Estou construindo projetos práticos em HTML, CSS e JavaScript, explorando APIs e boas práticas de Front-end para criar interfaces que unem funcionalidade e design.
+Estou construindo projetos práticos em HTML, CSS e JavaScript, explorando APIs e boas práticas de Front-end para criar interfaces com funcionalidade e design.
 
 🚀 Meu Objetivo: Unir minha bagagem de cuidado humano com a tecnologia para criar softwares que façam a diferença.
