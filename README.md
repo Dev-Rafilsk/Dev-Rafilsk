@@ -12,6 +12,7 @@ Boas Práticas com acessibilidade em LIBRAS, Text-to-Speech, conforme as normas 
 🌟 Destaques Recentes
 
 🏆Startup Experience 2026 (WYDEN): Chegamos à etapa final desenvolvendo o Sistema de Chamada Inclusivo (SCII), focado em acessibilidade no ambiente hospitalar.
+
 💻Desenvolvedor Freelance: Criação de sites institucionais e landing pages de alta conversão para clientes da área da saúde e educação, entregando soluções customizadas.
 
 🧠 Soft Skills
