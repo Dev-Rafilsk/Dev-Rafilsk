@@ -1,46 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>&lt;Dev&gt; Rafilsk | Desenvolvedor de Software</title>
     <meta name="description" content="Desenvolvedor de Software, criando sites, landing pages, sistemas web e aplicativos mobile.">
-    <meta property="og:title" content="&lt;Dev&gt;Rafilsk | Tecnologia e Desenvolvimento de Software">
-    <meta property="og:description" content="Desenvolvedor de Software, criando sites, landing pages, sistemas web e aplicativos mobile.">
-    <meta property="og:type" content="website">
-
-    <link rel="icon" type="image/jpeg" sizes="32x32" href="logo2.jpeg">
-    <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href="logo2.jpeg">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Adicionada a fonte Fraunces para dar um aspecto mais premium e sofisticado -->
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;700&family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="logo2.jpeg">
 </head>
 <body>
 
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <canvas id="bg-canvas"></canvas>
+
     <a class="skip-link" href="#inicio">Pular para o conteúdo principal</a>
 
-    <!-- Corrigido de nac-wrap para nav-wrap -->
     <header class="nav-wrap">
         <nav class="nav glass" aria-label="Navegação principal">
-            <a href="#inicio" class="nav-logo" aria-label="Dev Rafilsk - inicio">
-                <img src="logo-site.png" alt="" width="200" height="70" class="nav-logo-icon">
+            <a href="#inicio" class="nav-logo hover-sound" aria-label="Dev Rafilsk - inicio">
+                <img src="logo-site.png" alt="Logo Dev Rafilsk" class="nav-logo-img">
                 <span class="nav-logo-text"><strong>&lt;Dev&gt;Rafilsk</strong></span>
             </a>
+            
             <ul class="nav-links" id="nav-links">
-                <li><a href="#sobre">Sobre Mim</a></li>
-                <li><a href="#servicos">Meus Serviços</a></li>
-                <li><a href="#projetos">Meus Projetos</a></li>
-                <li><a href="#contato">Contato</a></li>
-                <li><a href="#contato" class="btn btn-primary nav-cta-mobile">Solicitar Orçamento</a></li>
+                <li><a href="#sobre" class="hover-sound">Sobre Mim</a></li>
+                <li><a href="#servicos" class="hover-sound">Serviços</a></li>
+                <li><a href="#projetos" class="hover-sound">Projetos</a></li>
+                <li><a href="#orcamento" class="hover-sound">Orçamento</a></li>
+                <li class="mobile-only"><button class="btn btn-primary hover-sound" data-open-budget>Iniciar Projeto</button></li>
             </ul>
 
-            <a href="#contato" class="btn btn-primary nav-cta">Solicitar Orçamento</a>
-
-            <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menu de navegação">
-                <span></span><span></span><span></span>
-            </button>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle hover-sound" aria-label="Alternar tema">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button class="btn btn-primary nav-cta hover-sound" data-open-budget>Iniciar Projeto</button>
+                <button class="nav-toggle hover-sound" id="nav-toggle" aria-expanded="false" aria-label="Abrir menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </nav>
     </header>
 
@@ -51,57 +59,62 @@
             <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
             
             <div class="container hero-grid">
-                <div class="hero-copy" data-reveal>
-                    <p class="eyebrow">
-                        <span class="eyebrow-dot"></span>
-                        Desenvolvedor de Software</p>
-                    
-                        <!-- Corrigido de hero-tutle para hero-title -->
-                        <h1 class="hero-title">
-                            Mais que código,<br><span class="text-gradient">inovação.</span>
-                        </h1>
-
-                        <p class="hero-lead">
-                            Transformo ideias em produtos digitais rápidos e bem construídos.<br>Sites, landing pages e sistemas, sob medida para o seu negócio crescer online.
-                        </p>
-
-                        <div class="terminal glass" aria-hidden="true">
-                            <div class="terminal-bar">
-                                <span class="terminal-dot"></span>
-                                <span class="terminal-dot"></span>
-                                <span class="terminal-dot"></span>
-                                <span class="terminal-title">@DevRafilsk</span>
-                            </div>
-                            <div class="terminal-body">
-                                <span class="terminal-prompt">$</span>
-                                <span class="terminal-text" id="terminal-text"></span><span class="terminal-cursor"></span>
-                            </div>
-                        </div>
-                </div>
-
-                <div class="hero-media" data-reveal data-reveal-delay="1">
-                    <div class="hero-photo-frame glass">
+                
+                <div class="hero-media" data-reveal>
+                    <div class="hero-photo-frame glass tilt-card">
                         <img src="eu-slipknot.jpeg" alt="Rafilsk Dev" class="hero-photo">
                     </div>
 
                     <div class="floating-chip chip-status glass">
-                        <span class="status-dot"></span>Disponível para novos projetos
+                        <span class="status-dot"></span>Disponível para orçamentos
                     </div>
 
                     <div class="floating-chip chip-stack glass">
-                        <span class="chip-stack-label">Stack</span>
-                        <!-- Corrigido de spa para span -->
-                        <span class="chip-stack-tags">HTML CSS JAVASCRIPT PYTHON</span>
+                        <span class="chip-stack-label">Stack Principal</span>
+                        <span class="chip-stack-tags">HTML • CSS • JS • Python</span>
                     </div>
                 </div>
+
+                <div class="hero-copy" data-reveal data-reveal-delay="1">
+                    <p class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        Desenvolvedor de Software
+                    </p>
+                    
+                    <h1 class="hero-title">
+                        Mais que código,<br><span class="text-gradient">inovação.</span>
+                    </h1>
+
+                    <p class="hero-lead">
+                        Transformo ideias em produtos digitais rápidos e bem construídos.<br>Sites, landing pages e sistemas, sob medida para o seu negócio crescer online.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#projetos" class="btn btn-primary hover-sound">Ver Projetos</a>
+                        <button class="btn btn-ghost hover-sound" data-open-budget>Iniciar um Projeto</button>
+                    </div>
+
+                    <div class="terminal glass" aria-hidden="true">
+                        <div class="terminal-bar">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">@DevRafilsk ~ terminal</span>
+                        </div>
+                        <div class="terminal-body">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-text" id="terminal-text"></span><span class="terminal-cursor"></span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
         <section class="section" id="sobre">
             <div class="container about-grid">
-                <!-- Corrigido about-grip para about-grid no CSS, refletido aqui -->
                 <div class="about-media" data-reveal>
-                    <div class="about-photo-frame glass">
+                    <div class="about-photo-frame glass tilt-card">
                         <img src="eu-holo.jpeg" alt="Eu com holograma" class="about-photo">
                     </div>
                 </div>
@@ -110,19 +123,26 @@
                     <p class="eyebrow">Sobre mim</p>
                     <h2 class="section-title">Código com propósito,<br>não só sintaxe.</h2>
                     <p class="section-lead">
-                        Sou Rafilsk, desenvolvedor de software e gosto de entender o problema antes de abrir o editor — um site bonito só tem valor de verdade se ele resolve algo pra meus clientes.
+                        Sou Rafilsk, desenvolvedor de software. Gosto de entender o problema antes de abrir o editor — um site bonito só tem valor de verdade se ele resolve algo pros meus clientes.
                     </p>
                     <p class="section-lead">
-                        No dia a dia, desenvolvendo soluções tecnológicas para sua marca digital alcançar o público que você merece. <br>Entregando performance, responsividade e lógica.
+                        Desenvolvo soluções tecnológicas focadas em conversão, entregando performance, responsividade e lógica afiada.
                     </p>
+                    
+                    <div class="github-badge glass hover-sound" id="github-badge" title="Métricas ao vivo do GitHub">
+                        <i class="fa-brands fa-github gh-icon"></i>
+                        <div class="gh-info">
+                            <span class="gh-title">@Dev-Rafilsk</span>
+                            <span class="gh-stats">Buscando repositórios...</span>
+                        </div>
+                    </div>
                     
                     <ul class="skills-list" aria-label="Principais tecnologias">
                         <li class="skill-pill">JavaScript</li>
                         <li class="skill-pill">HTML5</li>
                         <li class="skill-pill">CSS3</li>
                         <li class="skill-pill">Python</li>
-                        <li class="skill-pill">Estruturas de Dados</li>
-                        <li class="skill-pill">Git &amp; GitHub</li>
+                        <li class="skill-pill">UI/UX</li>
                     </ul>
                 </div>
             </div>
@@ -132,58 +152,27 @@
             <div class="container">
                 <div class="section-head" data-reveal>
                     <p class="eyebrow">Meus Serviços</p>
-                    <h2 class="section-title">O que posso desenvolver para você hoje?</h2>
+                    <h2 class="section-title">O que posso desenvolver para você?</h2>
                     <p class="section-lead">Do primeiro protótipo ao sistema em produção — cada projeto recebe o mesmo cuidado, do código à experiência final.</p>
-                </div> <!-- Fechamento da div section-head que estava faltando -->
+                </div>
 
                 <div class="cards-grid">
-                    <article class="card glass" data-reveal>
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                <rect x="3" y="4" width="18" height="16" rx="2.5" stroke="url(#g1)" stroke-width="1.6"/>
-                                <path d="M3 9.5H21" stroke="url(#g1)" stroke-width="1.6"/>
-                                <path d="M7 14h6" stroke="url(#g1)" stroke-width="1.6" stroke-linecap="round"/>
-                                <defs><linearGradient id="g1" x1="3" y1="4" x2="21" y2="20"><stop stop-color="var(--green)"/><stop offset="1" stop-color="var(--purple)"/></linearGradient></defs>
-                            </svg>
-                        </div>
+                    <article class="card glass tilt-card hover-sound" data-reveal>
+                        <div class="card-icon"><i class="fa-solid fa-laptop-code"></i></div>
                         <h3>Sites &amp; Landing Pages</h3>
-                        <p>Páginas rápidas, responsivas e pensadas para converter visitantes em clientes.</p>
+                        <p>Páginas rápidas, responsivas e pensadas estrategicamente para converter visitantes em clientes.</p>
                     </article>
 
-                    <article class="card glass" data-reveal data-reveal-delay="1">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                <circle cx="12" cy="12" r="3" stroke="url(#g2)" stroke-width="1.6"/>
-                                <path d="M12 3v3M12 18v3M21 12h-3M6 12H3M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7 5.6 5.6" stroke="url(#g2)" stroke-width="1.6" stroke-linecap="round"/>
-                                <defs><linearGradient id="g2" x1="3" y1="3" x2="21" y2="21"><stop stop-color="var(--green)"/><stop offset="1" stop-color="var(--purple)"/></linearGradient></defs>
-                            </svg>
-                        </div>
+                    <article class="card glass tilt-card hover-sound" data-reveal data-reveal-delay="1">
+                        <div class="card-icon"><i class="fa-solid fa-gears"></i></div>
                         <h3>Sistemas sob medida</h3>
-                        <p>Aplicações web personalizadas para automatizar processos do seu negócio.</p>
+                        <p>Aplicações web personalizadas para automatizar processos e organizar os dados do seu negócio.</p>
                     </article>
 
-                    <article class="card glass" data-reveal data-reveal-delay="2">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                <circle cx="12" cy="8" r="3.4" stroke="url(#g3)" stroke-width="1.6"/>
-                                <path d="M4.5 20c1.4-3.6 4.4-5.4 7.5-5.4s6.1 1.8 7.5 5.4" stroke="url(#g3)" stroke-width="1.6" stroke-linecap="round"/>
-                                <defs><linearGradient id="g3" x1="4" y1="3" x2="19" y2="20"><stop stop-color="var(--green)"/><stop offset="1" stop-color="var(--purple)"/></linearGradient></defs>
-                            </svg>
-                        </div>
-                        <h3>Portfólios &amp; Presença digital</h3>
-                        <p>Site profissional para freelancers e pequenas marcas se apresentarem online.</p>
-                    </article>
-
-                    <article class="card glass" data-reveal data-reveal-delay="3">
-                        <div class="card-icon">
-                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                <path d="M4 12a8 8 0 0 1 13.7-5.7L20 8M20 12a8 8 0 0 1-13.7 5.7L4 16" stroke="url(#g4)" stroke-width="1.6" stroke-linecap="round"/>
-                                <path d="M20 4v4h-4M4 20v-4h4" stroke="url(#g4)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                                <defs><linearGradient id="g4" x1="4" y1="4" x2="20" y2="20"><stop stop-color="var(--green)"/><stop offset="1" stop-color="var(--purple)"/></linearGradient></defs>
-                            </svg>
-                        </div>
-                        <h3>Manutenção &amp; Suporte</h3>
-                        <p>Atualizações e evolução contínua do projeto depois que ele vai ao ar.</p>
+                    <article class="card glass tilt-card hover-sound" data-reveal data-reveal-delay="2">
+                        <div class="card-icon"><i class="fa-solid fa-user-astronaut"></i></div>
+                        <h3>Presença Digital</h3>
+                        <p>Estruturação de catálogos profissionais, integração de contatos e portfólios imersivos para marcas.</p>
                     </article>
                 </div>
             </div>
@@ -194,221 +183,148 @@
                 <div class="section-head" data-reveal>
                     <p class="eyebrow">Projetos</p>
                     <h2 class="section-title">Trabalhos recentes</h2>
-                    <p class="section-lead">
-                        Uma seleção de projetos para mostrar um pouco do que construo.
-                    </p>
+                    <p class="section-lead">Uma seleção de projetos reais. Clique para ver os detalhes e fotos exclusivas.</p>
                 </div>
 
                 <div class="projects-grid">
-
-                    <article class="project-card glass" data-reveal>
-                        <a href="#" class="project-thumb project-thumb-placeholder" aria-label="Sistema de acessibilidade">
-                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="project-thumb-icon">
-                                <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.4"/>
-                                <path d="M8 20l1-4M16 20l-1-4M3 9h18" stroke="currentColor" stroke-width="1.4"/>
-                            </svg>
-                            <span>SCII | Sistema de Chamada Inclusiva</span>
-                        </a>
+                    <article class="project-card glass tilt-card hover-sound" data-project-id="scii" data-reveal>
+                        <div class="project-thumb">
+                            <i class="fa-solid fa-wheelchair-move project-icon"></i>
+                            <span>SCII | Chamada Inclusiva</span>
+                        </div>
                         <div class="project-body">
-                            <h3>2º lugar na Startup Experience Wyden 2026</h3>
-                            <p>Sistema criado para inclusão de pacientes com deficiência, entregando acessibilidade para esses pacientes nos hospitais e clinicas.</p>
-                            <ul class="tag-list">
-                                <li>HTML</li><li>CSS</li><li>JavaScript</li>
-                            </ul>
-                            <a href="#" class="project-link">Ver projeto<span aria-hidden="true">→</span></a>
+                            <h3>2º lugar na Startup Experience 2026</h3>
+                            <p>Sistema focado na inclusão, entregando acessibilidade em hospitais e clínicas para pacientes com deficiência.</p>
+                            <ul class="tag-list"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+                            <button class="project-link">Ver projeto <i class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </article>
 
-                    <article class="project-card glass" data-reveal data-reveal-delay="1">
-                        <a href="#" class="project-thumb project-thumb-placeholder" aria-label="Ver projeto Landing Page Médica">
-                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="project-thumb-icon">
-                                <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.4"/>
-                                <path d="M8 20l1-4M16 20l-1-4M3 9h18" stroke="currentColor" stroke-width="1.4"/>
-                            </svg>
-                            <span>Landing Page | Dra Manuela Aguiar</span>
-                        </a>
+                    <article class="project-card glass tilt-card hover-sound" data-project-id="landing" data-reveal data-reveal-delay="1">
+                        <div class="project-thumb">
+                            <i class="fa-solid fa-stethoscope project-icon"></i>
+                            <span>Landing Pages Clínicas</span>
+                        </div>
                         <div class="project-body">
-                            <h3>Landing Page Médica Entregando Presença Digital</h3>
-                            <p>Página web profissional para captação de pacientes, otimizada para conversão e performance.</p>
-                            <ul class="tag-list">
-                                <li>HTML</li><li>CSS</li><li>JavaScript</li>
-                            </ul>
-                            <a href="#" class="project-link">Ver Projeto<span aria-hidden="true">→</span></a>
+                            <h3>Presença Digital Médica</h3>
+                            <p>Páginas web profissionais otimizadas estruturalmente para altíssima taxa de conversão e agendamentos.</p>
+                            <ul class="tag-list"><li>HTML</li><li>CSS</li><li>UX/UI</li></ul>
+                            <button class="project-link">Ver projeto <i class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </article>
 
-                    <article class="project-card glass" data-reveal data-reveal-delay="2">
-                        <a href="#" class="project-thumb project-thumb-placeholder" aria-label="Ver projeto Dashboard">
-                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="project-thumb-icon">
-                                <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.4"/>
-                                <path d="M8 20l1-4M16 20l-1-4M3 9h18" stroke="currentColor" stroke-width="1.4"/>
-                            </svg>
-                            <!-- span malformado corrigido -->
-                            <span>Dashboard de Análises</span> 
-                        </a>
+                    <article class="project-card glass tilt-card hover-sound" data-project-id="dashboard" data-reveal data-reveal-delay="2">
+                        <div class="project-thumb">
+                            <i class="fa-solid fa-chart-pie project-icon"></i>
+                            <span>Dashboard de Dados</span>
+                        </div>
                         <div class="project-body">
-                            <h3>Dashboard de Dados</h3>
-                            <p>Visualização de métricas em tempo real consumindo uma API própria.</p>
-                            <ul class="tag-list">
-                                <li>Python</li><li>JavaScript</li>
-                            </ul>
-                            <a href="#" class="project-link">Ver projeto <span aria-hidden="true">→</span></a>
+                            <h3>Dashboard Interativo em Tempo Real</h3>
+                            <p>Visualização de métricas e gráficos complexos consumindo uma API própria com interface altamente intuitiva.</p>
+                            <ul class="tag-list"><li>Python</li><li>JavaScript</li></ul>
+                            <button class="project-link">Ver projeto <i class="fa-solid fa-arrow-right"></i></button>
                         </div>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="stats-band">
-            <div class="stats-bg" style="background-image:url('assets/stats-bg.jpg')" aria-hidden="true"></div>
-            <div class="stats-overlay" aria-hidden="true"></div>
-
-            <div class="container">
-                <div class="stats-panel glass" data-reveal>
-                    <div class="stat">
-                        <span class="stat-number" data-target="5000" data-suffix="+">0</span>
-                        <span class="stat-label">Linhas de código</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number" data-target="20" data-suffix="+">0</span>
-                        <span class="stat-label">Repositórios ativos</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number" data-target="10" data-suffix="+">0</span>
-                        <span class="stat-label">Projetos entregues</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number" data-target="3" data-suffix="+">0</span>
-                        <span class="stat-label">Anos de experiência</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="contato">
-            <div class="container contact-grid">
-
-                <div class="contact-info" data-reveal>
-                    <p class="eyebrow">Contato</p>
+        <section class="section section-alt" id="orcamento">
+            <div class="container" style="text-align: center;">
+                <div class="section-head" data-reveal style="margin-inline: auto;">
+                    <p class="eyebrow">Orçamento</p>
                     <h2 class="section-title">Vamos construir seu objetivo juntos?</h2>
-                    <p class="section-lead">
-                        Tem um projeto em mente e precisa de um orçamento?<br> Me chama aqui no whatsapp - respondo super rápido.
+                    <p class="section-lead" style="margin-inline: auto;">
+                        Tem um projeto em mente? Clique no botão abaixo e preencha o formulário rápido. A resposta chega direto no meu WhatsApp.
                     </p>
-
-                    <div class="contact-person glass">
-                        <!-- Imagem com aspas e atributos mal formados corrigida -->
-                        <img src="eu-codando.jpeg" alt="Eu Codando" class="contact-avatar">
-                        <div>
-                            <strong>Rafilsk</strong>
-                            <span>Desenvolvedor de Software</span>
-                        </div>
-                    </div>
-
-                    <ul class="contact-links">
-                        <li>
-                            <a href="https://wa.me/5571984510297" class="contact-link" target="_blank" rel="noopener">
-                                <span class="contact-link-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10.2 9 9.7 7.8 9.5 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.2-.4-4.5-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
-                                </span>
-                                WhatsApp
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:devrafilsk@gmail.com" class="contact-link">
-                                <span class="contact-link-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                </span>
-                                devrafilsk@gmail.com
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/Dev-Rafilsk" class="contact-link" target="_blank" rel="noopener">
-                                <span class="contact-link-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.7.4-1.1.6-1.4-2.3-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.5-1.3.1-2.6 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .6 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z"/></svg>
-                                </span>
-                                GitHub
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://linkedin.com/in/rafaeltech72" class="contact-link" target="_blank" rel="noopener">
-                                <span class="contact-link-icon">
-                                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.9 8.4H3.6V20H6.9V8.4ZM5.3 3.5a1.9 1.9 0 1 0 0 3.8 1.9 1.9 0 0 0 0-3.8ZM20.4 20h.1v-6.4c0-3.1-.7-5.5-4.3-5.5-1.8 0-2.9 1-3.4 1.9h-.1V8.4H9.6V20h3.4v-5.8c0-1.5.3-3 2.2-3 1.9 0 1.9 1.8 1.9 3.1V20h3.3Z"/></svg>
-                                </span>
-                                LinkedIn
-                            </a>
-                        </li>
-                    </ul>
+                    <button class="btn btn-primary hover-sound" data-open-budget style="margin-top: 2rem; font-size: 1.1rem; padding: 1rem 2.5rem;">
+                        Solicitar Orçamento <i class="fa-solid fa-arrow-right"></i>
+                    </button>
                 </div>
-
-                <form class="contact-form glass" id="contact-form" data-reveal data-reveal-delay="1">
-                    <div class="form-row">
-                        <label for="name">Seu Nome</label>
-                        <input type="text" id="name" name="name" placeholder="Seu nome" required>
-                    </div>
-
-                    <div class="form-row">
-                        <label for="email">Seu E-mail</label>
-                        <input type="email" id="email" name="email" placeholder="seu@email.com" required>
-                    </div>
-
-                    <div class="form-row">
-                        <label for="project-type">Tipo de projeto</label>
-                        <select id="project-type" name="project-type">
-                            <option value="Landing Page">Landing page</option>
-                            <option value="Portfolio">Portfólio Digital</option>
-                            <option value="Site institucional">Sites Institucionais</option>
-                            <option value="Ecommerce">E-commerce</option>
-                            <option value="Sistema web">Sistemas Web</option>
-                            <option value="Manutencoes">Manutenções web</option>
-                            <option value="Outro">Outros</option>
-                        </select>
-                    </div>
-
-                    <div class="form-row">
-                        <label for="message">Mensagem</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Me conte um pouco sobre seu projeto..." required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-full">Enviar Mensagem</button>
-                    <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
-                </form>
-
             </div>
         </section>
 
     </main>
 
     <footer class="footer">
-        <div class="container footer-grid">
-            <div class="footer-brand">
-                <a href="#inicio" class="nav-logo">
-                    <img src="logo-site.png" alt="logo-site" width="150" height="50" class="nav-logo-icon">
-                    <span class="nav-logo-text"><strong>&lt;Dev&gt;Rafilsk</strong></span>
-                </a>
-                <p>Desenvolvedor de Software.</p>
-            </div>
-
-            <nav class="footer-links" aria-label="Links do rodapé">
-                <a href="#sobre">Sobre Mim</a>
-                <a href="#servicos">Meus Serviços</a>
-                <a href="#projetos">Meus Projetos</a>
-                <a href="#contato">Contato</a>
-            </nav>
-        </div>
         <div class="container">
-            <p class="footer-copy">&copy; <span id="year"></span> Dev Rafilsk<br> Todos os direitos reservados</p>
+            <p class="footer-copy">&copy; <span id="year"></span> Dev Rafilsk. Todos os direitos reservados.</p>
         </div>
     </footer>
+    <div class="modal-overlay" id="budget-modal">
+        <div class="modal-content glass">
+            <button class="modal-close hover-sound" data-close-modal aria-label="Fechar modal"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="modal-header">
+                <h3>Vamos criar algo incrível</h3>
+                <p>Preencha os detalhes para estruturarmos seu projeto.</p>
+            </div>
 
-    <a href="https://wa.me/5571984510298" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5C10.2 9 9.7 7.8 9.5 7.3c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.2-.4-4.5-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+            <form class="contact-form" id="contact-form" novalidate>
+                <div class="form-row">
+                    <label for="name">Seu Nome</label>
+                    <input type="text" id="name" name="name" placeholder="Como devo te chamar?" required>
+                </div>
+                <div class="form-row">
+                    <label for="project-type">Tipo de projeto</label>
+                    <select id="project-type" name="project-type">
+                        <option value="Landing Page Médica">Landing Page (Saúde/Clínica)</option>
+                        <option value="Sistema Web">Sistema Web / Dashboard</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="budget">Orçamento Estimado</label>
+                    <div class="range-wrap">
+                        <input type="range" id="budget" name="budget" min="500" max="25000" step="500" value="5000">
+                        <div class="range-display">
+                            <span class="range-value" id="budget-value">R$ 5.000</span>
+                            <span class="range-status" id="budget-status">Projeto Intermediário</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label for="message">Mensagem / Briefing</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Me conte um pouco sobre as metas do seu projeto..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full hover-sound" id="submit-btn">Enviar via WhatsApp <i class="fa-brands fa-whatsapp"></i></button>
+                <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
+            </form>
+            <div class="form-success-overlay" id="form-success">
+                <i class="fa-solid fa-circle-check"></i><h3>Tudo certo!</h3><p>Redirecionando para o WhatsApp...</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="project-modal">
+        <div class="modal-content glass project-modal-content">
+            <button class="modal-close hover-sound" data-close-modal aria-label="Fechar modal"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="carousel-container">
+                <div class="carousel-track" id="carousel-track">
+                </div>
+                <button class="carousel-btn prev hover-sound" id="carousel-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="carousel-btn next hover-sound" id="carousel-next"><i class="fa-solid fa-chevron-right"></i></button>
+                <div class="carousel-indicators" id="carousel-indicators"></div>
+            </div>
+
+            <div class="project-modal-info">
+                <h3 id="pm-title">Título do Projeto</h3>
+                <p id="pm-desc">Descrição completa do projeto aparecerá aqui.</p>
+                <div class="pm-footer">
+                    <ul class="tag-list" id="pm-tags"></ul>
+                    <a href="#" target="_blank" class="btn btn-primary btn-small hover-sound" id="pm-github">
+                        <i class="fa-brands fa-github"></i> Ver no GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://wa.me/5571984510297" class="whatsapp-fab hover-sound" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
     </a>
-
-    <button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
+    <button class="back-to-top hover-sound" id="back-to-top" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></button>
 
     <script src="script.js"></script>
-    
 </body>
 </html>
