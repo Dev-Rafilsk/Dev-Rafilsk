@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>&lt;Dev&gt; Rafilsk | Desenvolvedor de Software</title>
     <meta name="description" content="Desenvolvedor de Software, criando sites, landing pages, sistemas web e aplicativos mobile.">
-    
+    <meta name="theme-color" content="#0B0E14">
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+            } catch (e) {}
+        })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -18,34 +28,37 @@
 </head>
 <body>
 
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
+    <a href="#inicio" class="skip-link">Pular para o conteúdo</a>
 
-    <canvas id="bg-canvas"></canvas>
+    <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
+    <div class="cursor-outline" data-cursor-outline aria-hidden="true"></div>
 
-    <a class="skip-link" href="#inicio">Pular para o conteúdo principal</a>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
     <header class="nav-wrap">
         <nav class="nav glass" aria-label="Navegação principal">
-            <a href="#inicio" class="nav-logo hover-sound" aria-label="Dev Rafilsk - inicio">
+            <a href="#inicio" class="nav-logo hover-sound" aria-label="Dev Rafilsk — início">
                 <img src="logo-site.png" alt="Logo Dev Rafilsk" class="nav-logo-img">
-                <span class="nav-logo-text"><strong>&lt;Dev&gt;Rafilsk</strong></span>
             </a>
-            
-            <ul class="nav-links" id="nav-links">
+
+            <ul class="nav-links" id="nav-links" data-lenis-prevent>
                 <li><a href="#sobre" class="hover-sound">Sobre Mim</a></li>
                 <li><a href="#servicos" class="hover-sound">Serviços</a></li>
                 <li><a href="#projetos" class="hover-sound">Projetos</a></li>
                 <li><a href="#orcamento" class="hover-sound">Orçamento</a></li>
-                <li class="mobile-only"><button class="btn btn-primary hover-sound" data-open-budget>Iniciar Projeto</button></li>
+                <li class="mobile-only">
+                    <button class="btn btn-primary hover-sound" data-open-budget>Iniciar Projeto</button>
+                </li>
             </ul>
 
             <div class="nav-actions">
                 <button id="theme-toggle" class="theme-toggle hover-sound" aria-label="Alternar tema">
                     <i class="fa-solid fa-moon"></i>
                 </button>
+
                 <button class="btn btn-primary nav-cta hover-sound" data-open-budget>Iniciar Projeto</button>
-                <button class="nav-toggle hover-sound" id="nav-toggle" aria-expanded="false" aria-label="Abrir menu">
+
+                <button class="nav-toggle hover-sound" id="nav-toggle" aria-expanded="false" aria-label="Abrir menu" aria-controls="nav-links">
                     <span></span><span></span><span></span>
                 </button>
             </div>
@@ -53,16 +66,15 @@
     </header>
 
     <main id="inicio">
-        
+
         <section class="hero">
             <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
             <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-            
+
             <div class="container hero-grid">
-                
                 <div class="hero-media" data-reveal>
                     <div class="hero-photo-frame glass tilt-card">
-                        <img src="eu-slipknot.jpeg" alt="Rafilsk Dev" class="hero-photo">
+                        <img src="eu-slipknot.jpeg" alt="Rafilsk, desenvolvedor de software" class="hero-photo">
                     </div>
 
                     <div class="floating-chip chip-status glass">
@@ -80,13 +92,14 @@
                         <span class="eyebrow-dot"></span>
                         Desenvolvedor de Software
                     </p>
-                    
+
                     <h1 class="hero-title">
                         Mais que código,<br><span class="text-gradient">inovação.</span>
                     </h1>
 
                     <p class="hero-lead">
-                        Transformo ideias em produtos digitais rápidos e bem construídos.<br>Sites, landing pages e sistemas, sob medida para o seu negócio crescer online.
+                        Transformo ideias em produtos digitais rápidos e bem construídos.<br>
+                        Sites, landing pages e sistemas, sob medida para o seu negócio crescer online.
                     </p>
 
                     <div class="hero-actions">
@@ -115,7 +128,7 @@
             <div class="container about-grid">
                 <div class="about-media" data-reveal>
                     <div class="about-photo-frame glass tilt-card">
-                        <img src="eu-holo.jpeg" alt="Eu com holograma" class="about-photo">
+                        <img src="eu-holo.jpeg" alt="Rafilsk com holograma de código" class="about-photo">
                     </div>
                 </div>
 
@@ -123,12 +136,14 @@
                     <p class="eyebrow">Sobre mim</p>
                     <h2 class="section-title">Código com propósito,<br>não só sintaxe.</h2>
                     <p class="section-lead">
-                        Sou Rafilsk, desenvolvedor de software. Gosto de entender o problema antes de abrir o editor — um site bonito só tem valor de verdade se ele resolve algo pros meus clientes.
+                        Sou Rafilsk, desenvolvedor de software. Gosto de entender o problema antes de abrir o editor —
+                        um site bonito só tem valor de verdade se ele resolve algo pros meus clientes.
                     </p>
                     <p class="section-lead">
-                        Desenvolvo soluções tecnológicas focadas em conversão, entregando performance, responsividade e lógica afiada.
+                        Desenvolvo soluções tecnológicas focadas em conversão, entregando performance,
+                        responsividade e lógica afiada.
                     </p>
-                    
+
                     <div class="github-badge glass hover-sound" id="github-badge" title="Métricas ao vivo do GitHub">
                         <i class="fa-brands fa-github gh-icon"></i>
                         <div class="gh-info">
@@ -136,7 +151,7 @@
                             <span class="gh-stats">Buscando repositórios...</span>
                         </div>
                     </div>
-                    
+
                     <ul class="skills-list" aria-label="Principais tecnologias">
                         <li class="skill-pill">JavaScript</li>
                         <li class="skill-pill">HTML5</li>
@@ -153,7 +168,10 @@
                 <div class="section-head" data-reveal>
                     <p class="eyebrow">Meus Serviços</p>
                     <h2 class="section-title">O que posso desenvolver para você?</h2>
-                    <p class="section-lead">Do primeiro protótipo ao sistema em produção — cada projeto recebe o mesmo cuidado, do código à experiência final.</p>
+                    <p class="section-lead">
+                        Do primeiro protótipo ao sistema em produção — cada projeto recebe o mesmo cuidado,
+                        do código à experiência final.
+                    </p>
                 </div>
 
                 <div class="cards-grid">
@@ -183,24 +201,26 @@
                 <div class="section-head" data-reveal>
                     <p class="eyebrow">Projetos</p>
                     <h2 class="section-title">Trabalhos recentes</h2>
-                    <p class="section-lead">Uma seleção de projetos reais. Clique para ver os detalhes e fotos exclusivas.</p>
+                    <p class="section-lead">Uma seleção de projetos reais. Clique para ver os detalhes e as fotos exclusivas.</p>
                 </div>
 
                 <div class="projects-grid">
-                    <article class="project-card glass tilt-card hover-sound" data-project-id="scii" data-reveal>
+                    <article class="project-card glass tilt-card hover-sound" data-project-id="scii" data-reveal
+                             tabindex="0" role="button" aria-label="Abrir detalhes do projeto SCII">
                         <div class="project-thumb">
                             <i class="fa-solid fa-wheelchair-move project-icon"></i>
                             <span>SCII | Chamada Inclusiva</span>
                         </div>
                         <div class="project-body">
-                            <h3>2º lugar na Startup Experience 2026</h3>
+                            <h3>2º lugar na Startup Experience</h3>
                             <p>Sistema focado na inclusão, entregando acessibilidade em hospitais e clínicas para pacientes com deficiência.</p>
                             <ul class="tag-list"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-                            <button class="project-link">Ver projeto <i class="fa-solid fa-arrow-right"></i></button>
+                            <span class="project-link">Ver fotos do projeto <i class="fa-solid fa-arrow-right"></i></span>
                         </div>
                     </article>
 
-                    <article class="project-card glass tilt-card hover-sound" data-project-id="landing" data-reveal data-reveal-delay="1">
+                    <article class="project-card glass tilt-card hover-sound" data-project-id="landing-medica" data-reveal
+                             data-reveal-delay="1" tabindex="0" role="button" aria-label="Abrir detalhes das Landing Pages Médicas">
                         <div class="project-thumb">
                             <i class="fa-solid fa-stethoscope project-icon"></i>
                             <span>Landing Pages Clínicas</span>
@@ -209,11 +229,12 @@
                             <h3>Presença Digital Médica</h3>
                             <p>Páginas web profissionais otimizadas estruturalmente para altíssima taxa de conversão e agendamentos.</p>
                             <ul class="tag-list"><li>HTML</li><li>CSS</li><li>UX/UI</li></ul>
-                            <button class="project-link">Ver projeto <i class="fa-solid fa-arrow-right"></i></button>
+                            <span class="project-link">Ver fotos do projeto <i class="fa-solid fa-arrow-right"></i></span>
                         </div>
                     </article>
 
-                    <article class="project-card glass tilt-card hover-sound" data-project-id="dashboard" data-reveal data-reveal-delay="2">
+                    <article class="project-card glass tilt-card hover-sound" data-project-id="dashboard" data-reveal
+                             data-reveal-delay="2" tabindex="0" role="button" aria-label="Abrir detalhes do Dashboard Analítico">
                         <div class="project-thumb">
                             <i class="fa-solid fa-chart-pie project-icon"></i>
                             <span>Dashboard de Dados</span>
@@ -222,7 +243,7 @@
                             <h3>Dashboard Interativo em Tempo Real</h3>
                             <p>Visualização de métricas e gráficos complexos consumindo uma API própria com interface altamente intuitiva.</p>
                             <ul class="tag-list"><li>Python</li><li>JavaScript</li></ul>
-                            <button class="project-link">Ver projeto <i class="fa-solid fa-arrow-right"></i></button>
+                            <span class="project-link">Ver fotos do projeto <i class="fa-solid fa-arrow-right"></i></span>
                         </div>
                     </article>
                 </div>
@@ -230,14 +251,15 @@
         </section>
 
         <section class="section section-alt" id="orcamento">
-            <div class="container" style="text-align: center;">
-                <div class="section-head" data-reveal style="margin-inline: auto;">
+            <div class="container">
+                <div class="section-head section-head--center" data-reveal>
                     <p class="eyebrow">Orçamento</p>
                     <h2 class="section-title">Vamos construir seu objetivo juntos?</h2>
-                    <p class="section-lead" style="margin-inline: auto;">
-                        Tem um projeto em mente? Clique no botão abaixo e preencha o formulário rápido. A resposta chega direto no meu WhatsApp.
+                    <p class="section-lead">
+                        Tem um projeto em mente? Clique no botão abaixo e preencha o formulário rápido.
+                        A resposta chega direto no meu WhatsApp.
                     </p>
-                    <button class="btn btn-primary hover-sound" data-open-budget style="margin-top: 2rem; font-size: 1.1rem; padding: 1rem 2.5rem;">
+                    <button class="btn btn-primary hover-sound btn-hero-cta" data-open-budget>
                         Solicitar Orçamento <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
@@ -248,23 +270,27 @@
 
     <footer class="footer">
         <div class="container">
-            <p class="footer-copy">&copy; <span id="year"></span> Dev Rafilsk. Todos os direitos reservados.</p>
+            <p class="footer-copy">&copy; <span id="year">2026</span> Dev Rafilsk. Todos os direitos reservados.</p>
         </div>
     </footer>
-    <div class="modal-overlay" id="budget-modal">
-        <div class="modal-content glass">
-            <button class="modal-close hover-sound" data-close-modal aria-label="Fechar modal"><i class="fa-solid fa-xmark"></i></button>
-            
+
+    <div class="modal-overlay" id="budget-modal" aria-hidden="true">
+        <div class="modal-content glass" role="dialog" aria-modal="true" aria-labelledby="budget-modal-title" data-lenis-prevent>
+            <button class="modal-close hover-sound" data-close-modal aria-label="Fechar modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
             <div class="modal-header">
-                <h3>Vamos criar algo incrível</h3>
+                <h3 id="budget-modal-title">Vamos criar algo incrível</h3>
                 <p>Preencha os detalhes para estruturarmos seu projeto.</p>
             </div>
 
             <form class="contact-form" id="contact-form" novalidate>
                 <div class="form-row">
                     <label for="name">Seu Nome</label>
-                    <input type="text" id="name" name="name" placeholder="Como devo te chamar?" required>
+                    <input type="text" id="name" name="name" placeholder="Como devo te chamar?" required autocomplete="name">
                 </div>
+
                 <div class="form-row">
                     <label for="project-type">Tipo de projeto</label>
                     <select id="project-type" name="project-type">
@@ -273,48 +299,64 @@
                         <option value="Outro">Outro</option>
                     </select>
                 </div>
+
                 <div class="form-row">
                     <label for="budget">Orçamento Estimado</label>
                     <div class="range-wrap">
-                        <input type="range" id="budget" name="budget" min="500" max="25000" step="500" value="5000">
+                        <input type="range" id="budget" name="budget" min="500" max="25000" step="500" value="5000" aria-describedby="budget-value">
                         <div class="range-display">
                             <span class="range-value" id="budget-value">R$ 5.000</span>
                             <span class="range-status" id="budget-status">Projeto Intermediário</span>
                         </div>
                     </div>
                 </div>
+
                 <div class="form-row">
                     <label for="message">Mensagem / Briefing</label>
                     <textarea id="message" name="message" rows="3" placeholder="Me conte um pouco sobre as metas do seu projeto..." required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary btn-full hover-sound" id="submit-btn">Enviar via WhatsApp <i class="fa-brands fa-whatsapp"></i></button>
+
+                <button type="submit" class="btn btn-primary btn-full hover-sound" id="submit-btn">
+                    Enviar via WhatsApp <i class="fa-brands fa-whatsapp"></i>
+                </button>
+
                 <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
             </form>
-            <div class="form-success-overlay" id="form-success">
-                <i class="fa-solid fa-circle-check"></i><h3>Tudo certo!</h3><p>Redirecionando para o WhatsApp...</p>
+
+            <div class="form-success-overlay" id="form-success" aria-hidden="true">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3>Tudo certo!</h3>
+                <p>Redirecionando para o WhatsApp...</p>
             </div>
         </div>
     </div>
-    <div class="modal-overlay" id="project-modal">
-        <div class="modal-content glass project-modal-content">
-            <button class="modal-close hover-sound" data-close-modal aria-label="Fechar modal"><i class="fa-solid fa-xmark"></i></button>
-            
-            <div class="carousel-container">
-                <div class="carousel-track" id="carousel-track">
-                </div>
-                <button class="carousel-btn prev hover-sound" id="carousel-prev"><i class="fa-solid fa-chevron-left"></i></button>
-                <button class="carousel-btn next hover-sound" id="carousel-next"><i class="fa-solid fa-chevron-right"></i></button>
+
+    <div class="modal-overlay" id="project-modal" aria-hidden="true">
+        <div class="modal-content glass project-modal-content" role="dialog" aria-modal="true" aria-labelledby="pm-title" data-lenis-prevent>
+            <button class="modal-close hover-sound" data-close-modal aria-label="Fechar modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="carousel-container" id="carousel-container">
+                <div class="carousel-track" id="carousel-track"></div>
+
+                <button class="carousel-btn prev hover-sound" id="carousel-prev" aria-label="Imagem anterior">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next hover-sound" id="carousel-next" aria-label="Próxima imagem">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
                 <div class="carousel-indicators" id="carousel-indicators"></div>
             </div>
 
             <div class="project-modal-info">
                 <h3 id="pm-title">Título do Projeto</h3>
                 <p id="pm-desc">Descrição completa do projeto aparecerá aqui.</p>
+
                 <div class="pm-footer">
                     <ul class="tag-list" id="pm-tags"></ul>
-                    <a href="#" target="_blank" class="btn btn-primary btn-small hover-sound" id="pm-github">
-                        <i class="fa-brands fa-github"></i> Ver no GitHub
-                    </a>
+                    <div class="pm-actions" id="pm-actions"></div>
                 </div>
             </div>
         </div>
@@ -323,7 +365,10 @@
     <a href="https://wa.me/5571984510297" class="whatsapp-fab hover-sound" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
-    <button class="back-to-top hover-sound" id="back-to-top" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <button class="back-to-top hover-sound" id="back-to-top" aria-label="Voltar ao topo">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
     <script src="script.js"></script>
 </body>
