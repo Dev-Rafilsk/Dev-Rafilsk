@@ -253,7 +253,7 @@ function initUISounds() {
 function initEasterEgg() {
     const originalTitle = document.title;
     document.addEventListener('visibilitychange', () => {
-        document.title = document.hidden ? '👀 Ei, volte para o projeto!' : originalTitle;
+        document.title = document.hidden ? '👀 Ei, Rafilsk está te esperando!' : originalTitle;
     });
 }
 
