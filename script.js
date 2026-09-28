@@ -266,7 +266,7 @@ async function fetchGitHubStats() {
     const USERNAME = 'Dev-Rafilsk';
 
     try {
-        const res = await fetch(`https://api.github.com/users/${USERNAME}`);
+        const res = await fetch(`https://api.github.com/Dev-Rafilsk/${USERNAME}`);
         if (!res.ok) throw new Error('GitHub API indisponível');
         const data = await res.json();
         statsEl.textContent = `${data.public_repos} Repositórios • ${data.followers} Seguidores`;
@@ -435,8 +435,8 @@ function setupBackToTop() {
 
 const projectDB = {
     'scii': {
-        title: 'SCII | Sistema de Chamada Inclusiva',
-        desc: 'Sistema premiado em 2º lugar na Startup Experience Wyden. Desenvolvido para acessibilidade hospitalar e clínica, permitindo o gerenciamento de chamadas de pacientes com deficiência via sinalização áudio-visual inteligente.',
+        title: 'SCII | Sistema de Chamada Inclusiva e Interetiva',
+        desc: 'Projeto premiado com o 2º lugar na Startup Experience Wyden 2026. Desenvolvido para acessibilidade hospitalar e clínica, permitindo o gerenciamento de chamadas de pacientes com deficiência visual, auditiva ou com acessibilidade diminuida via sinalização áudio-visual inteligente.',
         tags: ['HTML5', 'CSS3', 'JavaScript', 'Acessibilidade'],
         githubUrl: 'https://github.com/Dev-Rafilsk',
         liveUrl: '', 
@@ -444,8 +444,8 @@ const projectDB = {
     },
 
     'landing-medica': {
-        title: 'Landing Pages Médicas de Alta Conversão',
-        desc: 'Projetos sob medida para profissionais de saúde (como Dr. Lucas Moreira e Dr. Marcelo Pedrosa). Inclui carrossel interativo de fotos, design responsivo, alta velocidade de carregamento e direcionamento otimizado de agendamentos para o WhatsApp.',
+        title: 'Landing Pages de Alta Conversão para médicos(as)',
+        desc: 'Projetos sob medida para profissionais de saúde (como Dr. Lucas Moreira, Dr. Marcelo Pedrosa, Dra Manuela Aguiar e Dra Roberta Moitinho). Inclui carrossel interativo de fotos, design responsivo, alta velocidade de carregamento e direcionamento otimizado de agendamentos para o WhatsApp.',
         tags: ['HTML5', 'CSS3', 'JavaScript', 'UX/UI', 'SEO'],
         githubUrl: '',
         liveUrl: 'https://seusite.com/clinica',
