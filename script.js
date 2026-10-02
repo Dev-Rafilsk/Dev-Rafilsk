@@ -49,12 +49,7 @@ function initTheme() {
 
         htmlEl.setAttribute('data-theme', newTheme);
         try { localStorage.setItem('theme', newTheme); } catch (e) {}
-
         updateIcon(newTheme);
-
-        if (typeof window.updateCanvasTheme === 'function') {
-            window.updateCanvasTheme(newTheme);
-        }
     });
 
     function updateIcon(theme) {
@@ -128,6 +123,7 @@ function initCustomCursor() {
     });
 }
 
+/* EFEITO CANVAS DE PARTÍCULAS VERDE NEON */
 function initBackgroundCanvas() {
     const canvas = document.getElementById('bg-canvas');
     if (!canvas) return;
@@ -137,14 +133,12 @@ function initBackgroundCanvas() {
     let particles = [];
     let animationFrameId = null;
 
-    let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         canvas.style.display = 'none';
         return;
     }
 
-    const particleCount = window.innerWidth < 768 ? 16 : 34;
+    const particleCount = window.innerWidth < 768 ? 50 : 120;
 
     function resize() {
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
@@ -159,51 +153,36 @@ function initBackgroundCanvas() {
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.3;
-            this.vy = (Math.random() - 0.5) * 0.3;
-            this.radius = Math.random() * 2 + 1;
+            this.vx = (Math.random() - 0.5) * 0.15;
+            this.vy = (Math.random() - 0.5) * 0.15;
+            this.radius = Math.random() * 1.5 + 0.5;
+            this.opacity = Math.random();
+            this.fadeSign = Math.random() > 0.5 ? 1 : -1;
         }
         update() {
             this.x += this.vx;
             this.y += this.vy;
+
+            this.opacity += 0.005 * this.fadeSign;
+            if (this.opacity >= 1) this.fadeSign = -1;
+            if (this.opacity <= 0.1) this.fadeSign = 1;
+
             if (this.x < 0 || this.x > width) this.vx *= -1;
             if (this.y < 0 || this.y > height) this.vy *= -1;
         }
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = isDark ? 'rgba(59, 219, 138, 0.45)' : 'rgba(46, 158, 108, 0.35)';
+            ctx.fillStyle = `rgba(30, 215, 96, ${this.opacity})`;
             ctx.fill();
         }
     }
 
-    window.updateCanvasTheme = (theme) => { isDark = theme === 'dark'; };
-
     function animate() {
         ctx.clearRect(0, 0, width, height);
-
         for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            p.update();
-            p.draw();
-        }
-
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 150) {
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = isDark
-                        ? `rgba(168, 85, 247, ${(1 - dist / 150) * 0.18})`
-                        : `rgba(124, 45, 147, ${(1 - dist / 150) * 0.12})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.stroke();
-                }
-            }
+            particles[i].update();
+            particles[i].draw();
         }
         animationFrameId = requestAnimationFrame(animate);
     }
@@ -222,29 +201,23 @@ function initUISounds() {
     if (!AudioContextRef) return;
 
     let audioCtx = null;
-
     function playPop() {
         try {
             if (!audioCtx) audioCtx = new AudioContextRef();
             if (audioCtx.state === 'suspended') audioCtx.resume();
-
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
-
             osc.type = 'sine';
             osc.frequency.setValueAtTime(600, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
-
             gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-
             osc.connect(gain);
             gain.connect(audioCtx.destination);
             osc.start();
             osc.stop(audioCtx.currentTime + 0.1);
         } catch (e) {}
     }
-
     document.addEventListener('click', (e) => {
         if (e.target.closest('.hover-sound')) playPop();
     });
@@ -262,12 +235,11 @@ async function fetchGitHubStats() {
     if (!badge) return;
     const statsEl = badge.querySelector('.gh-stats');
     if (!statsEl) return;
-
     const USERNAME = 'Dev-Rafilsk';
 
     try {
-        const res = await fetch(`https://api.github.com/Dev-Rafilsk/${USERNAME}`);
-        if (!res.ok) throw new Error('GitHub API indisponível');
+        const res = await fetch(`https://api.github.com/users/${USERNAME}`);
+        if (!res.ok) throw new Error('Erro');
         const data = await res.json();
         statsEl.textContent = `${data.public_repos} Repositórios • ${data.followers} Seguidores`;
         badge.onclick = () => window.open(data.html_url, '_blank', 'noopener');
@@ -309,7 +281,6 @@ function setupMobileNav() {
 function setupNavScrollState() {
     const navWrap = document.querySelector('.nav-wrap');
     if (!navWrap) return;
-
     const updateState = () => navWrap.classList.toggle('scrolled', window.scrollY > 10);
     updateState();
     window.addEventListener('scroll', updateState, { passive: true });
@@ -338,16 +309,12 @@ function setupScrollReveal() {
 
 function setupTiltEffect() {
     if (window.matchMedia('(hover: none)').matches) return;
-
     const cards = document.querySelectorAll('.tilt-card');
-
     cards.forEach((card) => {
         let rafId = null;
-
         card.addEventListener('mouseenter', () => {
             card.style.transition = 'transform 0.15s var(--ease)';
         });
-
         card.addEventListener('mousemove', (e) => {
             if (rafId) cancelAnimationFrame(rafId);
             rafId = requestAnimationFrame(() => {
@@ -358,11 +325,9 @@ function setupTiltEffect() {
                 const centerY = rect.height / 2;
                 const rotateX = ((y - centerY) / centerY) * -5;
                 const rotateY = ((x - centerX) / centerX) * 5;
-
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
             });
         });
-
         card.addEventListener('mouseleave', () => {
             if (rafId) cancelAnimationFrame(rafId);
             card.style.transition = 'transform 0.45s var(--ease)';
@@ -390,7 +355,6 @@ function setupTerminalTyping() {
 
     function step() {
         const cur = lines[lineIdx];
-
         if (!deleting) {
             charIdx++;
             el.textContent = cur.slice(0, charIdx);
@@ -412,14 +376,12 @@ function setupTerminalTyping() {
             setTimeout(step, 28);
         }
     }
-
     step();
 }
 
 function setupBackToTop() {
     const btn = document.getElementById('back-to-top');
     if (!btn) return;
-
     const toggle = () => btn.classList.toggle('visible', window.scrollY > 600);
     toggle();
     window.addEventListener('scroll', toggle, { passive: true });
@@ -434,32 +396,46 @@ function setupBackToTop() {
 }
 
 const projectDB = {
+    'dr-lucas': {
+        title: 'Dr. Lucas Moreira',
+        desc: 'Landing Page sob medida para atendimento médico profissional. Foco total em conversão e usabilidade para agendamentos de consultas com design de alto padrão e velocidade de carregamento extrema.',
+        tags: ['HTML5', 'CSS3', 'JavaScript'],
+        liveUrl: 'https://drlucasmo.com.br',
+        liveLabel: 'Acessar Site',
+    },
+    'dra-roberta': {
+        title: 'Dra. Roberta Moitinho',
+        desc: 'Página de presença digital médica responsiva. Interface desenhada para acolher o paciente, transmitir segurança e direcioná-lo rapidamente para a equipe de atendimento via WhatsApp.',
+        tags: ['HTML5', 'CSS3', 'UX/UI'],
+        liveUrl: 'https://drarobertamoitinho.com.br',
+        liveLabel: 'Acessar Site',
+    },
+    'dr-marcelo': {
+        title: 'Dr. Marcelo Pedrosa',
+        desc: 'Site institucional otimizado para motores de busca (SEO) e estruturado em blocos dinâmicos para apresentar tratamentos, depoimentos e área de localização imersiva.',
+        tags: ['HTML5', 'CSS3', 'JavaScript'],
+        liveUrl: 'https://drmarcelopedrosamarinho.com.br',
+        liveLabel: 'Acessar Site',
+    },
+    'dra-manuela': {
+        title: 'Dra. Manuela Aguiar',
+        desc: 'Projeto focado em destacar autoridade médica na área de atuação. Conta com carrossel interativo, layout clean e botões flutuantes para garantir altíssima taxa de contato.',
+        tags: ['HTML5', 'CSS3', 'UX/UI'],
+        liveUrl: 'https://dramanuelaaguiar.com.br',
+        liveLabel: 'Acessar Site',
+    },
     'scii': {
-        title: 'SCII | Sistema de Chamada Inclusiva e Interetiva',
-        desc: 'Projeto premiado com o 2º lugar na Startup Experience Wyden 2026. Desenvolvido para acessibilidade hospitalar e clínica, permitindo o gerenciamento de chamadas de pacientes com deficiência visual, auditiva ou com acessibilidade diminuida via sinalização áudio-visual inteligente.',
+        title: 'SCII | Sistema de Chamada Inclusiva e Inteligente',
+        desc: 'Projeto premiado com o 2º lugar na Startup Experience Wyden. Desenvolvido para acessibilidade hospitalar e clínica, permitindo o gerenciamento de chamadas de pacientes com deficiência.',
         tags: ['HTML5', 'CSS3', 'JavaScript', 'Acessibilidade'],
-        githubUrl: 'https://github.com/Dev-Rafilsk',
-        liveUrl: '', 
-        images: ['./assets/scii-1.jpg', './assets/scii-2.jpg']
+        githubUrl: 'https://github.com/Dev-Rafilsk/SCII-Sistema-de-Inclusao',
+        images: ['./', '']
     },
-
-    'landing-medica': {
-        title: 'Landing Pages de Alta Conversão para médicos(as)',
-        desc: 'Projetos sob medida para profissionais de saúde (como Dr. Lucas Moreira, Dr. Marcelo Pedrosa, Dra Manuela Aguiar e Dra Roberta Moitinho). Inclui carrossel interativo de fotos, design responsivo, alta velocidade de carregamento e direcionamento otimizado de agendamentos para o WhatsApp.',
-        tags: ['HTML5', 'CSS3', 'JavaScript', 'UX/UI', 'SEO'],
-        githubUrl: '',
-        liveUrl: 'https://seusite.com/clinica',
-        liveLabel: 'Ver Site Ao Vivo',
-        images: ['./assets/medica-1.jpg', './assets/medica-2.jpg']
-    },
-
     'dashboard': {
         title: 'Dashboard Analítico em Tempo Real',
-        desc: 'Painel administrativo para visualização de métricas e KPIs consumindo API REST nativa. Interface moderna com Dark Mode, filtros dinâmicos e gráficos responsivos sem dependência de bibliotecas externas pesadas.',
+        desc: 'Painel administrativo para visualização de métricas consumindo API REST nativa. Interface com Dark Mode, filtros dinâmicos e gráficos responsivos.',
         tags: ['Python', 'JavaScript', 'APIs REST'],
         githubUrl: 'https://github.com/Dev-Rafilsk',
-        liveUrl: 'https://seusite.com/dashboard',
-        liveLabel: 'Ver Dashboard Ao Vivo',
         images: ['./assets/dash-1.jpg']
     }
 };
@@ -501,7 +477,7 @@ function createImagePlaceholder(label) {
                 ${safeLabel}
             </text>
             <text x="400" y="250" font-family="JetBrains Mono, monospace" font-size="15" fill="rgba(255,255,255,0.7)" text-anchor="middle">
-                Adicione a imagem na pasta ./assets/
+                Sem imagem disponível
             </text>
         </svg>`;
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.trim());
@@ -571,7 +547,7 @@ function setupProjectModal() {
             liveLink.target = '_blank';
             liveLink.rel = 'noopener noreferrer';
             liveLink.className = 'btn btn-primary btn-small hover-sound';
-            const label = project.liveLabel || 'Ver Site Ao Vivo';
+            const label = project.liveLabel || 'Ver Site';
             liveLink.innerHTML = `<i class="fa-solid fa-arrow-up-right-from-square"></i> ${label}`;
             pmActions.appendChild(liveLink);
         }
@@ -619,41 +595,17 @@ function setupProjectModal() {
     prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
     nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
 
-    document.addEventListener('keydown', (e) => {
-        if (!projectModal.classList.contains('active')) return;
-        if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
-        if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
-    });
-
-    let touchStartX = 0, touchEndX = 0;
-    track.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    track.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 45) {
-            diff > 0 ? goToSlide(currentSlide + 1) : goToSlide(currentSlide - 1);
-        }
-    }, { passive: true });
-
     document.querySelectorAll('.project-card').forEach((card) => {
-        const activate = () => {
+        const activate = (e) => {
+            if (e && e.target.closest('.project-link')) return; 
+
             const id = card.getAttribute('data-project-id');
             const data = projectDB[id];
             if (!data) return;
             renderProject(data);
             openModal(projectModal);
         };
-
         card.addEventListener('click', activate);
-        card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                activate();
-            }
-        });
     });
 }
 
@@ -664,7 +616,6 @@ document.addEventListener('click', (e) => {
         if (overlay) closeModal(overlay);
         return;
     }
-
     if (e.target.classList && e.target.classList.contains('modal-overlay')) {
         closeModal(e.target);
     }
@@ -678,47 +629,35 @@ function setupContactForm() {
     const form = document.getElementById('contact-form');
     if (!form) return;
 
-    const budgetInput = document.getElementById('budget');
-    const budgetValue = document.getElementById('budget-value');
-    const budgetStatus = document.getElementById('budget-status');
+    const projectType = document.getElementById('project-type');
+    const dynamicPrice = document.getElementById('dynamic-price');
     const successOverlay = document.getElementById('form-success');
     const submitBtn = document.getElementById('submit-btn');
     const note = document.getElementById('form-note');
 
-    const WHATSAPP_NUMBER = '5571984510297';
+    const WHATSAPP_NUMBER = '5571982553729';
 
-    if (budgetInput && budgetValue && budgetStatus) {
-        const updateRange = () => {
-            const val = parseInt(budgetInput.value, 10);
-            budgetValue.textContent = `R$ ${val.toLocaleString('pt-BR')}`;
-
-            if (val < 3000) {
-                budgetStatus.textContent = 'Projeto Simples';
-                budgetStatus.style.color = 'var(--green)';
-            } else if (val < 10000) {
-                budgetStatus.textContent = 'Projeto Intermediário';
-                budgetStatus.style.color = 'var(--purple)';
-            } else {
-                budgetStatus.textContent = 'Projeto Avançado';
-                budgetStatus.style.color = '#ff5f56';
-            }
-        };
-        budgetInput.addEventListener('input', updateRange);
-        updateRange();
+    if (projectType && dynamicPrice) {
+        projectType.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const price = selectedOption.getAttribute('data-price');
+            dynamicPrice.textContent = price ? price : 'Selecione um serviço acima';
+        });
     }
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
         const nome = form.name.value.trim();
-        const tipo = form['project-type'].value;
+        const tipoSelect = form['project-type'];
+        const tipo = tipoSelect.value;
         const msg = form.message.value.trim();
-        const orcamento = budgetInput
-            ? `R$ ${parseInt(budgetInput.value, 10).toLocaleString('pt-BR')}`
-            : 'N/A';
+        
+        const selectedOption = tipoSelect.options[tipoSelect.selectedIndex];
+        const orcamento = selectedOption ? selectedOption.getAttribute('data-price') : 'Não definido';
 
-        if (!nome || !msg) {
-            note.textContent = 'Preencha os campos obrigatórios.';
+        if (!nome || !msg || !tipo) {
+            note.textContent = 'Preencha todos os campos obrigatórios.';
             note.style.color = '#ff5f56';
             return;
         }
@@ -731,11 +670,11 @@ function setupContactForm() {
             if (successOverlay) successOverlay.classList.add('active');
 
             const texto =
-                `Olá Rafilsk, meu nome é *${nome}*! 👋\n\n` +
+                `Olá Rafilsk, meu nome é ${nome}! 👋\n\n` +
                 `Tenho interesse em estruturar um projeto com você.\n\n` +
-                `*Serviço:* ${tipo}\n` +
-                `*Orçamento estimado:* ${orcamento}\n\n` +
-                `*Briefing:* ${msg}`;
+                `Serviço: ${tipo}\n` +
+                ` ${orcamento}\n\n` +
+                ` ${msg}`;
 
             const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`;
 
@@ -745,7 +684,7 @@ function setupContactForm() {
                 setTimeout(() => {
                     if (successOverlay) successOverlay.classList.remove('active');
                     form.reset();
-                    if (budgetInput) budgetInput.dispatchEvent(new Event('input'));
+                    if (dynamicPrice) dynamicPrice.textContent = 'Selecione um serviço acima';
 
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = 'Enviar via WhatsApp <i class="fa-brands fa-whatsapp"></i>';
