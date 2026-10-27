@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupBudgetModal();
     setupProjectModal();
     setupContactForm();
+    setupServicesCarousel();
 
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
@@ -113,7 +114,7 @@ function initCustomCursor() {
     }
     animateOutline();
 
-    const hoverSelector = 'a, button, select, .tilt-card, .github-badge, .project-card';
+    const hoverSelector = 'a, button, select, .tilt-card, .github-badge, .project-card, .service-card, .carousel-nav, .profile-frame, .hero-photo-frame';
 
     document.addEventListener('mouseover', (e) => {
         if (e.target.closest(hoverSelector)) outline.classList.add('hovered');
@@ -123,7 +124,6 @@ function initCustomCursor() {
     });
 }
 
-/* EFEITO CANVAS DE PARTÍCULAS VERDE NEON */
 function initBackgroundCanvas() {
     const canvas = document.getElementById('bg-canvas');
     if (!canvas) return;
@@ -138,7 +138,7 @@ function initBackgroundCanvas() {
         return;
     }
 
-    const particleCount = window.innerWidth < 768 ? 50 : 120;
+    const particleCount = window.innerWidth < 768 ? 40 : 80;
 
     function resize() {
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
@@ -153,27 +153,34 @@ function initBackgroundCanvas() {
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.15;
-            this.vy = (Math.random() - 0.5) * 0.15;
-            this.radius = Math.random() * 1.5 + 0.5;
-            this.opacity = Math.random();
+            this.vx = (Math.random() - 0.5) * 0.25;
+            this.vy = (Math.random() - 0.5) * 0.25;
+            this.radius = Math.random() * 3 + 2.5; 
+            this.opacity = Math.random() * 0.5 + 0.3;
             this.fadeSign = Math.random() > 0.5 ? 1 : -1;
         }
         update() {
             this.x += this.vx;
             this.y += this.vy;
 
-            this.opacity += 0.005 * this.fadeSign;
-            if (this.opacity >= 1) this.fadeSign = -1;
-            if (this.opacity <= 0.1) this.fadeSign = 1;
+            this.opacity += 0.008 * this.fadeSign;
+            if (this.opacity >= 0.85) this.fadeSign = -1;
+            if (this.opacity <= 0.2) this.fadeSign = 1;
 
             if (this.x < 0 || this.x > width) this.vx *= -1;
             if (this.y < 0 || this.y > height) this.vy *= -1;
         }
         draw() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(30, 215, 96, ${this.opacity})`;
+            
+            if (isDark) {
+                ctx.fillStyle = `rgba(59, 219, 138, ${this.opacity})`;
+            } else {
+                ctx.fillStyle = `rgba(46, 158, 108, ${this.opacity * 1.2})`;
+            }
+            
             ctx.fill();
         }
     }
@@ -219,7 +226,7 @@ function initUISounds() {
         } catch (e) {}
     }
     document.addEventListener('click', (e) => {
-        if (e.target.closest('.hover-sound')) playPop();
+        if (e.target.closest('.hover-sound') || e.target.closest('.profile-frame') || e.target.closest('.hero-photo-frame')) playPop();
     });
 }
 
@@ -396,12 +403,25 @@ function setupBackToTop() {
 }
 
 const projectDB = {
+    'whatsapp-ia': {
+        title: 'Assistente de IA para WhatsApp',
+        desc: 'Solução avançada de inteligência artificial integrada ao WhatsApp para clínicas e consultórios. O sistema interage de forma humanizada com os pacientes, responde dúvidas frequentes, realiza marcações automáticas na agenda e faz a triagem para direcionar o paciente ao local ou profissional adequado.',
+        tags: ['Python', 'WhatsApp API', 'Inteligência Artificial', 'Automação'],
+        images: [] 
+    },
+    'finance-dashboard': {
+        title: 'Dashboard de Análise Financeira Pessoal',
+        desc: 'Painel interativo e inteligente para gestão e verificação detalhada do fluxo financeiro pessoal. Permite o acompanhamento em tempo real de entradas, saídas, categorias de despesas e relatórios visuais para otimização do orçamento.',
+        tags: ['JavaScript', 'CSS3', 'Gráficos Interativos', 'Controle Financeiro'],
+        images: [] 
+    },
     'dr-lucas': {
         title: 'Dr. Lucas Moreira',
         desc: 'Landing Page sob medida para atendimento médico profissional. Foco total em conversão e usabilidade para agendamentos de consultas com design de alto padrão e velocidade de carregamento extrema.',
         tags: ['HTML5', 'CSS3', 'JavaScript'],
         liveUrl: 'https://drlucasmo.com.br',
         liveLabel: 'Acessar Site',
+        images: ['LP-LucasM.jpeg'] 
     },
     'dra-roberta': {
         title: 'Dra. Roberta Moitinho',
@@ -409,6 +429,7 @@ const projectDB = {
         tags: ['HTML5', 'CSS3', 'UX/UI'],
         liveUrl: 'https://drarobertamoitinho.com.br',
         liveLabel: 'Acessar Site',
+        images: ['LP-RobertaM.jpeg']
     },
     'dr-marcelo': {
         title: 'Dr. Marcelo Pedrosa',
@@ -416,6 +437,7 @@ const projectDB = {
         tags: ['HTML5', 'CSS3', 'JavaScript'],
         liveUrl: 'https://drmarcelopedrosamarinho.com.br',
         liveLabel: 'Acessar Site',
+        images: ['LP-MarceloP.jpeg']
     },
     'dra-manuela': {
         title: 'Dra. Manuela Aguiar',
@@ -423,20 +445,14 @@ const projectDB = {
         tags: ['HTML5', 'CSS3', 'UX/UI'],
         liveUrl: 'https://dramanuelaaguiar.com.br',
         liveLabel: 'Acessar Site',
+        images: ['LP-ManuelaA.jpeg']
     },
     'scii': {
         title: 'SCII | Sistema de Chamada Inclusiva e Inteligente',
         desc: 'Projeto premiado com o 2º lugar na Startup Experience Wyden. Desenvolvido para acessibilidade hospitalar e clínica, permitindo o gerenciamento de chamadas de pacientes com deficiência.',
         tags: ['HTML5', 'CSS3', 'JavaScript', 'Acessibilidade'],
         githubUrl: 'https://github.com/Dev-Rafilsk/SCII-Sistema-de-Inclusao',
-        images: ['./', '']
-    },
-    'dashboard': {
-        title: 'Dashboard Analítico em Tempo Real',
-        desc: 'Painel administrativo para visualização de métricas consumindo API REST nativa. Interface com Dark Mode, filtros dinâmicos e gráficos responsivos.',
-        tags: ['Python', 'JavaScript', 'APIs REST'],
-        githubUrl: 'https://github.com/Dev-Rafilsk',
-        images: ['./assets/dash-1.jpg']
+        images: []
     }
 };
 
@@ -607,6 +623,94 @@ function setupProjectModal() {
         };
         card.addEventListener('click', activate);
     });
+}
+
+function setupServicesCarousel() {
+    const track = document.getElementById('services-track');
+    const prevBtn = document.querySelector('.prev-service');
+    const nextBtn = document.querySelector('.next-service');
+    const carouselWrap = document.querySelector('.services-carousel-wrap');
+    if (!track || !prevBtn || !nextBtn) return;
+
+    const cards = Array.from(track.querySelectorAll('.service-card'));
+    let currentIndex = Math.floor(cards.length / 2);
+    let autoPlayTimer = null;
+
+    function updateCarousel() {
+        cards.forEach((card, index) => {
+            card.classList.toggle('active', index === currentIndex);
+        });
+
+        const activeCard = cards[currentIndex];
+        const trackContainer = track.parentElement.offsetWidth;
+        const cardWidth = activeCard.offsetWidth;
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 32; 
+
+        const offset = (trackContainer / 2) - (cardWidth / 2) - (currentIndex * (cardWidth + gap));
+        track.style.transform = `translateX(${offset}px)`;
+    }
+
+    function nextSlide() {
+        if (currentIndex < cards.length - 1) {
+            currentIndex++;
+        } else {
+            currentIndex = 0;
+        }
+        updateCarousel();
+    }
+
+    function prevSlide() {
+        if (currentIndex > 0) {
+            currentIndex--;
+        } else {
+            currentIndex = cards.length - 1;
+        }
+        updateCarousel();
+    }
+
+    function startAutoPlay() {
+        stopAutoPlay();
+        autoPlayTimer = setInterval(nextSlide, 3500); 
+    }
+
+    function stopAutoPlay() {
+        if (autoPlayTimer) {
+            clearInterval(autoPlayTimer);
+            autoPlayTimer = null;
+        }
+    }
+
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        startAutoPlay(); 
+    });
+
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        startAutoPlay();
+    });
+
+    cards.forEach((card, index) => {
+        card.addEventListener('click', (e) => {
+            if (index !== currentIndex) {
+                e.stopPropagation();
+                currentIndex = index;
+                updateCarousel();
+                startAutoPlay();
+            }
+        });
+    });
+
+    if (carouselWrap) {
+        carouselWrap.addEventListener('mouseenter', stopAutoPlay);
+        carouselWrap.addEventListener('mouseleave', startAutoPlay);
+        carouselWrap.addEventListener('touchstart', stopAutoPlay, { passive: true });
+        carouselWrap.addEventListener('touchend', startAutoPlay, { passive: true });
+    }
+
+    updateCarousel();
+    startAutoPlay(); 
+    window.addEventListener('resize', updateCarousel);
 }
 
 document.addEventListener('click', (e) => {
