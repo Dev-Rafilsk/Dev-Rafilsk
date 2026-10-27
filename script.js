@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupScrollReveal();
     setupTerminalTyping();
     setupBackToTop();
-    setupTiltEffect();
     setupBudgetModal();
     setupProjectModal();
     setupContactForm();
@@ -114,7 +113,7 @@ function initCustomCursor() {
     }
     animateOutline();
 
-    const hoverSelector = 'a, button, select, .tilt-card, .github-badge, .project-card, .service-card, .carousel-nav, .profile-frame, .hero-photo-frame';
+    const hoverSelector = 'a, button, select, .github-badge, .project-card, .service-card, .carousel-nav, .profile-frame, .hero-photo-frame';
 
     document.addEventListener('mouseover', (e) => {
         if (e.target.closest(hoverSelector)) outline.classList.add('hovered');
@@ -312,35 +311,6 @@ function setupScrollReveal() {
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     targets.forEach((el) => observer.observe(el));
-}
-
-function setupTiltEffect() {
-    if (window.matchMedia('(hover: none)').matches) return;
-    const cards = document.querySelectorAll('.tilt-card');
-    cards.forEach((card) => {
-        let rafId = null;
-        card.addEventListener('mouseenter', () => {
-            card.style.transition = 'transform 0.15s var(--ease)';
-        });
-        card.addEventListener('mousemove', (e) => {
-            if (rafId) cancelAnimationFrame(rafId);
-            rafId = requestAnimationFrame(() => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -5;
-                const rotateY = ((x - centerX) / centerX) * 5;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-        });
-        card.addEventListener('mouseleave', () => {
-            if (rafId) cancelAnimationFrame(rafId);
-            card.style.transition = 'transform 0.45s var(--ease)';
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        });
-    });
 }
 
 function setupTerminalTyping() {
