@@ -217,74 +217,173 @@
             </div>
         </section>
 
+        <!-- SEÇÃO DE PROJETOS EM CARROSSEL DUPLO -->
         <section class="section" id="projetos">
             <div class="container">
                 <div class="section-head" data-reveal>
                     <p class="eyebrow">Projetos</p>
                     <h2 class="section-title">Trabalhos recentes</h2>
-                    <p class="section-lead">Uma seleção de projetos reais. Clique para acessar o site ou ver detalhes.</p>
+                    <p class="section-lead">Uma seleção de projetos reais. Passe o mouse para pausar e clique para ver detalhes ou acessar o site.</p>
+                </div>
+            </div>
+
+            <div class="projects-dual-carousel" data-reveal data-reveal-delay="1">
+                <!-- Linha 1: Movimento para a Esquerda -->
+                <div class="marquee-row marquee-left">
+                    <div class="marquee-track">
+                        <!-- Conteúdo duplicado para efeito infinito perfeito -->
+                        <article class="project-card glass hover-sound" data-project-id="whatsapp-ia" tabindex="0" role="button">
+                            <div class="project-thumb" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #25D366, var(--purple-deep));">
+                                <i class="fa-solid fa-comments project-icon" style="font-size: 2.8rem; color: #fff;"></i>
+                            </div>
+                            <div class="project-body">
+                                <h3>Assistente de IA para WhatsApp</h3>
+                                <p>Automação inteligente para atendimento de pacientes e marcações.</p>
+                                <ul class="tag-list"><li>Python</li><li>IA</li></ul>
+                                <span class="project-link">Ver Detalhes<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
+
+                        <article class="project-card glass hover-sound" data-project-id="finance-dashboard" tabindex="0" role="button">
+                            <div class="project-thumb" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--green), var(--purple));">
+                                <i class="fa-solid fa-chart-line project-icon" style="font-size: 2.8rem; color: #fff;"></i>
+                            </div>
+                            <div class="project-body">
+                                <h3>Dashboard Financeiro Pessoal</h3>
+                                <p>Painel completo para verificação de fluxo de caixa e finanças.</p>
+                                <ul class="tag-list"><li>JavaScript</li><li>Gráficos</li></ul>
+                                <span class="project-link">Ver Detalhes<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
+
+                        <article class="project-card glass hover-sound" data-project-id="dr-lucas" tabindex="0" role="button">
+                            <div class="project-thumb">
+                                <img src="LP-LucasM.jpeg" alt="Dr. Lucas Moreira" class="thumb-img">
+                            </div>
+                            <div class="project-body">
+                                <h3>Landing Page Médica</h3>
+                                <p>Página otimizada para altíssima taxa de conversão.</p>
+                                <ul class="tag-list"><li>HTML</li><li>CSS</li></ul>
+                                <span class="project-link">Ver Site<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
+
+                        <article class="project-card glass hover-sound" data-project-id="dra-roberta" tabindex="0" role="button">
+                            <div class="project-thumb">
+                                <img src="LP-RobertaM.jpeg" alt="Dra. Roberta Moitinho" class="thumb-img">
+                            </div>
+                            <div class="project-body">
+                                <h3>Presença Digital</h3>
+                                <p>Design sofisticado focado na captação de pacientes.</p>
+                                <ul class="tag-list"><li>HTML</li><li>UX/UI</li></ul>
+                                <span class="project-link">Ver Site<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
+
+                        <!-- DUPLICAÇÃO PARA LOOP INFINITO FLUIDO -->
+                        <article class="project-card glass hover-sound" data-project-id="whatsapp-ia" tabindex="0" role="button">
+                            <div class="project-thumb" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #25D366, var(--purple-deep));">
+                                <i class="fa-solid fa-comments project-icon" style="font-size: 2.8rem; color: #fff;"></i>
+                            </div>
+                            <div class="project-body">
+                                <h3>Assistente de IA para WhatsApp</h3>
+                                <p>Automação inteligente para atendimento de pacientes e marcações.</p>
+                                <ul class="tag-list"><li>Python</li><li>IA</li></ul>
+                                <span class="project-link">Ver Detalhes<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
+
+                        <article class="project-card glass hover-sound" data-project-id="finance-dashboard" tabindex="0" role="button">
+                            <div class="project-thumb" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--green), var(--purple));">
+                                <i class="fa-solid fa-chart-line project-icon" style="font-size: 2.8rem; color: #fff;"></i>
+                            </div>
+                            <div class="project-body">
+                                <h3>Dashboard Financeiro Pessoal</h3>
+                                <p>Painel completo para verificação de fluxo de caixa e finanças.</p>
+                                <ul class="tag-list"><li>JavaScript</li><li>Gráficos</li></ul>
+                                <span class="project-link">Ver Detalhes<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
+                    </div>
                 </div>
 
-                <div class="projects-grid">
-                    <article class="project-card glass tilt-card hover-sound" data-project-id="scii" data-reveal data-reveal-delay="2" tabindex="0" role="button">
-                        <div class="project-thumb" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--green-light), var(--purple-light));">
-                            <i class="fa-solid fa-wheelchair-move project-icon" style="font-size: 2.5rem; color: var(--purple-deep);"></i>
-                        </div>
-                        <div class="project-body">
-                            <h3>2º lugar na Startup Experience</h3>
-                            <p>Sistema inclusivo para hospitais e clínicas com sinalização inteligente para deficientes visuais, auditivos e idosos.</p>
-                            <ul class="tag-list"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-                            <span class="project-link">Ver Sistema<i class="fa-solid fa-arrow-right"></i></span>
-                        </div>
-                    </article>
+                <!-- Linha 2: Movimento para a Direita -->
+                <div class="marquee-row marquee-right">
+                    <div class="marquee-track">
+                        <!-- Conteúdo da linha 2 -->
+                        <article class="project-card glass hover-sound" data-project-id="dr-marcelo" tabindex="0" role="button">
+                            <div class="project-thumb">
+                                <img src="LP-MarceloP.jpeg" alt="Dr. Marcelo Pedrosa" class="thumb-img">
+                            </div>
+                            <div class="project-body">
+                                <h3>Página de Captação</h3>
+                                <p>Estrutura veloz e moderna com forte direcionamento para o WhatsApp.</p>
+                                <ul class="tag-list"><li>HTML</li><li>CSS</li></ul>
+                                <span class="project-link">Ver Site<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
 
-                    <article class="project-card glass tilt-card hover-sound" data-project-id="dr-lucas" data-reveal data-reveal-delay="2" tabindex="0" role="button">
-                        <div class="project-thumb">
-                            <img src="LP-LucasM.jpeg" alt="Dr. Lucas Moreira" class="thumb-img">
-                        </div>
-                        <div class="project-body">
-                            <h3>Landing Page Médica</h3>
-                            <p>Página otimizada para altíssima taxa de conversão e agendamentos diretos.</p>
-                            <ul class="tag-list"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-                            <a href="https://drlucasmo.com.br" target="_blank" rel="noopener" class="project-link">Ver Site<i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </article>
+                        <article class="project-card glass hover-sound" data-project-id="dra-manuela" tabindex="0" role="button">
+                            <div class="project-thumb">
+                                <img src="LP-ManuelaA.jpeg" alt="Dra. Manuela Aguiar" class="thumb-img">
+                            </div>
+                            <div class="project-body">
+                                <h3>Dra. Manuela Aguiar</h3>
+                                <p>Projeto focado em destacar autoridade médica com carrossel interativo.</p>
+                                <ul class="tag-list"><li>HTML</li><li>UX/UI</li></ul>
+                                <span class="project-link">Ver Site<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
 
-                    <article class="project-card glass tilt-card hover-sound" data-project-id="finance-dashboard" data-reveal data-reveal-delay="1" tabindex="0" role="button">
-                        <div class="project-thumb" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--green), var(--purple));">
-                            <i class="fa-solid fa-chart-line project-icon" style="font-size: 2.8rem; color: #fff;"></i>
-                        </div>
-                        <div class="project-body">
-                            <h3>Dashboard Financeiro Pessoal</h3>
-                            <p>Painel completo para verificação de fluxo de caixa, controle de entradas/saídas e metas financeiras.</p>
-                            <ul class="tag-list"><li>JavaScript</li><li>CSS3</li><li>Gráficos Interativos</li></ul>
-                            <span class="project-link">Ver Detalhes<i class="fa-solid fa-arrow-right"></i></span>
-                        </div>
-                    </article>
+                        <article class="project-card glass hover-sound" data-project-id="scii" tabindex="0" role="button">
+                            <div class="project-thumb" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--green-light), var(--purple-light));">
+                                <i class="fa-solid fa-wheelchair-move project-icon" style="font-size: 2.5rem; color: var(--purple-deep);"></i>
+                            </div>
+                            <div class="project-body">
+                                <h3>2º lugar na Startup Experience</h3>
+                                <p>Sistema inclusivo para hospitais e clínicas com sinalização inteligente.</p>
+                                <ul class="tag-list"><li>HTML</li><li>JS</li></ul>
+                                <span class="project-link">Ver Sistema<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
 
-                    <article class="project-card glass tilt-card hover-sound" data-project-id="dra-roberta" data-reveal data-reveal-delay="0" tabindex="0" role="button">
-                        <div class="project-thumb">
-                            <img src="LP-RobertaM.jpeg" alt="Dra. Roberta Moitinho" class="thumb-img">
-                        </div>
-                        <div class="project-body">
-                            <h3>Presença Digital</h3>
-                            <p>Design sofisticado e responsivo focado na captação de pacientes de alto padrão.</p>
-                            <ul class="tag-list"><li>HTML</li><li>CSS</li><li>UX/UI</li></ul>
-                            <a href="https://drarobertamoitinho.com.br" target="_blank" rel="noopener" class="project-link">Ver Site<i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </article>
+                        <!-- DUPLICAÇÃO PARA LOOP INFINITO FLUIDO -->
+                        <article class="project-card glass hover-sound" data-project-id="dr-marcelo" tabindex="0" role="button">
+                            <div class="project-thumb">
+                                <img src="LP-MarceloP.jpeg" alt="Dr. Marcelo Pedrosa" class="thumb-img">
+                            </div>
+                            <div class="project-body">
+                                <h3>Página de Captação</h3>
+                                <p>Estrutura veloz e moderna com forte direcionamento para o WhatsApp.</p>
+                                <ul class="tag-list"><li>HTML</li><li>CSS</li></ul>
+                                <span class="project-link">Ver Site<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
 
-                    <article class="project-card glass tilt-card hover-sound" data-project-id="dr-marcelo" data-reveal data-reveal-delay="1" tabindex="0" role="button">
-                        <div class="project-thumb">
-                            <img src="LP-MarceloP.jpeg" alt="Dr. Marcelo Pedrosa" class="thumb-img">
-                        </div>
-                        <div class="project-body">
-                            <h3>Página de Captação</h3>
-                            <p>Estrutura veloz e moderna com forte direcionamento para o WhatsApp.</p>
-                            <ul class="tag-list"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
-                            <a href="https://drmarcelopedrosamarinho.com.br" target="_blank" rel="noopener" class="project-link">Ver Site<i class="fa-solid fa-arrow-right"></i></a>
-                        </div>
-                    </article>
+                        <article class="project-card glass hover-sound" data-project-id="dra-manuela" tabindex="0" role="button">
+                            <div class="project-thumb">
+                                <img src="LP-ManuelaA.jpeg" alt="Dra. Manuela Aguiar" class="thumb-img">
+                            </div>
+                            <div class="project-body">
+                                <h3>Dra. Manuela Aguiar</h3>
+                                <p>Projeto focado em destacar autoridade médica com carrossel interativo.</p>
+                                <ul class="tag-list"><li>HTML</li><li>UX/UI</li></ul>
+                                <span class="project-link">Ver Site<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
+
+                        <article class="project-card glass hover-sound" data-project-id="scii" tabindex="0" role="button">
+                            <div class="project-thumb" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--green-light), var(--purple-light));">
+                                <i class="fa-solid fa-wheelchair-move project-icon" style="font-size: 2.5rem; color: var(--purple-deep);"></i>
+                            </div>
+                            <div class="project-body">
+                                <h3>2º lugar na Startup Experience</h3>
+                                <p>Sistema inclusivo para hospitais e clínicas com sinalização inteligente.</p>
+                                <ul class="tag-list"><li>HTML</li><li>JS</li></ul>
+                                <span class="project-link">Ver Sistema<i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
